@@ -53,17 +53,17 @@ URxvt.urlLauncher:          firefox
 URxvt.cursorBlink:          true
 URxvt.cursorColor:          #657b83
 URxvt.cursorUnderline:      false
+*cursorColor:               #93a1a1
 
 ! Pointer
 URxvt.pointerBlank:         true
 
-!!Source http://github.com/altercation/solarized
-
-URxvt.background:[85]#000000
-URxvt.foreground: #18f018
-!!*fading: 40
-*fadeColor: #002b36
-*cursorColor: #93a1a1
+*foreground:                #18f018
+*foreground_bold:           #a8a19f
+*cursor:                    #a8a19f
+*background:                #1b1918
+!!*background: rgba(0, 0, 0, .7)
+*fadeColor:             #002b36
 *pointerColorBackground: #586e75
 *pointerColorForeground: #93a1a1
 
@@ -88,7 +88,7 @@ URxvt.foreground: #18f018
 
 !! blue dark/light
 *color4: #ccf9ee
-*color12: #54ffff
+*color12: #54ffff 
 
 !! magenta dark/light
 *color5: #d33682
@@ -101,3 +101,56 @@ URxvt.foreground: #18f018
 !! white dark/light
 *color7: #607f67
 *color15: #fdf6e3
+
+URxvt.intensityStyles:	false
+URxvt.background:       [85]#000000
+
+
+!-------------------------------------------------------------------------------
+! st settings
+! 
+! 
+! 
+!-------------------------------------------------------------------------------
+
+!st.font: xft:Ubuntu\ Mono\ derivative\ Powerline:pixelsize=16
+st.font: xft:Ubuntu\ Mono\ derivative\ Powerline:pixelsize=16
+
+!! black dark/light
+st.color0: #424242
+st.color8: #5d5d5d
+
+!! red dark/light
+st.color1: #dc322f
+st.color9: #cb4b16
+!00212a
+
+!! green dark/light
+st.color2: #54ff54
+!!*color2: #000000
+
+st.color10: #4a8b4a
+
+!! yellow dark/light
+st.color3: #b58900
+st.color11: #657b83
+
+!! blue dark/light
+st.color4: #ccf9ee
+st.color12: #54ffff 
+
+!! magenta dark/light
+st.color5: #d33682
+st.color13: #6c71c4
+
+!! cyan dark/light
+st.color6: #2aa198
+st.color14: #93a1a1
+
+!! white dark/light
+st.color7: #607f67
+st.color15: #fdf6e3
+
+st.background: [85]#000000
+st.foreground: #18f018
+st.cursorColor: #657b83
