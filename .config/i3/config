@@ -14,6 +14,27 @@ gaps outer 10
 for_window [class="^.*"] border pixel 
 set $mod Mod4
 
+# limit maximum window size for floating windows
+floating_maximum_size 1728 x 972
+
+# get class and instance name by running 'xprop | grep WM_CLASS'
+# output: WM_CLASS(String) = "instance", "class"
+#
+# floating window for mpv
+for_window [class="mpv" instance="gl"] floating enable
+for_window [class="floatingSt"] floating enable
+
+# assign specific applications to a specific workspace
+assign [class="Waterfox"] 10
+assign [class="discord"] 11
+assign [class="Firefox"] 12
+
+# leave fullscreen mode when a popup appears.
+popup_during_fullscreen leave_fullscreen
+
+# delay urgency hint reset on workspace change
+force_display_urgency_hint 500 ms
+
 # Colors: #rrggbb
 # class                 border  backgr. text    indicator child_border
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #009900
@@ -41,11 +62,9 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-
-# start user programms
-bindsym Control+Shift+Escape exec gnome-system-monitor
-bindsym $mod+Shift+f exec waterfox 
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec st
+bindsym $mod+Shift+Return exec st -c floatingSt
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -63,6 +82,9 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 #bindsym $mod+semicolon focus right
+
+# toggle sticky mode
+bindsym $mod+s sticky toggle
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -92,10 +114,17 @@ bindsym $mod+v split v
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
+# no gap and reset gap
+bindsym $mod+Shift+t gaps inner current set 0; gaps outer current set 0
+bindsym $mod+Shift+g gaps inner current set 25; gaps outer current set 10
+
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
+# cycle through layout
+bindsym $mod+c layout toggle
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -107,7 +136,11 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+Shift+a focus child
+
+# toggle marker 'mark'
+bindsym $mod+m mark --add --toggle mark
+bindsym $mod+Shift+m move container to mark mark
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -157,12 +190,51 @@ bindsym $mod+Shift+F10 move container to workspace 20
 bindsym $mod+Shift+F11 move container to workspace 21
 bindsym $mod+Shift+F12 move container to workspace 22
 
+# move focused container and move to that workspace
+bindsym $mod+Shift+Control+1 move container to workspace 1; workspace 1
+bindsym $mod+Shift+Control+2 move container to workspace 2; workspace 2
+bindsym $mod+Shift+Control+3 move container to workspace 3; workspace 3
+bindsym $mod+Shift+Control+4 move container to workspace 4; workspace 4
+bindsym $mod+Shift+Control+5 move container to workspace 5; workspace 5
+bindsym $mod+Shift+Control+6 move container to workspace 6; workspace 6
+bindsym $mod+Shift+Control+7 move container to workspace 7; workspace 7
+bindsym $mod+Shift+Control+8 move container to workspace 8; workspace 8
+bindsym $mod+Shift+Control+9 move container to workspace 9; workspace 9
+bindsym $mod+Shift+Control+0 move container to workspace 10; workspace 10
+bindsym $mod+Shift+Control+F1 move container to workspace 11; workspace 11
+bindsym $mod+Shift+Control+F2 move container to workspace 12; workspace 12
+bindsym $mod+Shift+Control+F3 move container to workspace 13; workspace 13
+bindsym $mod+Shift+Control+F4 move container to workspace 14; workspace 14
+bindsym $mod+Shift+Control+F5 move container to workspace 15; workspace 15
+bindsym $mod+Shift+Control+F6 move container to workspace 16; workspace 16
+bindsym $mod+Shift+Control+F7 move container to workspace 17; workspace 17
+bindsym $mod+Shift+Control+F8 move container to workspace 18; workspace 18
+bindsym $mod+Shift+Control+F9 move container to workspace 19; workspace 19
+bindsym $mod+Shift+Control+F10 move container to workspace 20; workspace 20
+bindsym $mod+Shift+Control+F11 move container to workspace 21; workspace 21
+bindsym $mod+Shift+Control+F12 move container to workspace 22; workspace 22
+
+# move to previous workspace
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab move container to workspace back_and_forth
+bindsym $mod+Shift+Control+Tab move container to workspace back_and_forth; workspace back_and_forth
+
+# scratchpad
+bindsym $mod+Shift+n move scratchpad
+bindsym $mod+n scratchpad show
+
+# move left and right
+bindsym $mod+Shift+Control+h workspace prev
+bindsym $mod+Shift+Control+l workspace next
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m ' You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# lock screen
+bindsym $mod+Escape exec lock.sh
 
 # resize window (you can also use the mouse for that)
 bindsym $mod+z resize shrink width 5 px or 5 ppt
@@ -206,27 +278,49 @@ bindsym $mod+r mode "resize"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Volume Control
-bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
-bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
+#bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
+#bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec amixer -D pulse set Master toggle
 bindsym XF86AudioMicMute exec amixer -D pulse set Capture toggle
 
-# Cycle through Wallpaper
+# mpc bindings (music player)
+bindsym $mod+Shift+greater exec --no-startup-id mpc next
+bindsym $mod+less exec --no-startup-id mpc prev
+bindsym $mod+p exec --no-startup-id mpc toggle
+
+# Backlight Control
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+
+# Wallpaper Control
+exec --no-startup-id make-wallpaper.sh
 bindsym $mod+Shift+w exec --no-startup-id cycle-wallpaper.sh forward
 bindsym $mod+Shift+Control+w exec --no-startup-id cycle-wallpaper.sh backward
-#bindsym $mod+Shift+w exec --no-startup-id feh --bg-fill --randomize ~/Pictures/Wallpapers
-exec --no-startup-id make-wallpaper.sh
-#exec --no-startup-id feh --bg-fill --randomize ~/Pictures/Wallpapers
+bindsym $mod+Shift+Control+r exec reload-wallpaper.sh
 
 # Make screenshot
-bindsym $mod+Shift+s exec --no-startup-id gnome-screenshot
+bindsym $mod+Shift+s exec gnome-screenshot -i
 bindsym $mod+Shift+Control+s exec gscreenshot
-
-# Start Discord
-bindsym $mod+Shift+d exec discord
 
 #compton for transparency
 exec compton -CG
 
 #multi display: move workspace
 bindsym $mod+x move workspace to output right
+bindsym $mod+Shift+x move workspace to output left
+
+#download with youtube-dl
+bindsym $mod+Shift+y exec ytdl-from-clipboard.sh
+
+#mount/unmount script
+bindsym $mod+Shift+comma exec dmenu-mount.sh
+bindsym $mod+Shift+Control+comma exec dmenu-unmount.sh
+
+# start user programms
+bindsym Control+Shift+Escape exec gnome-system-monitor
+bindsym $mod+Shift+f exec waterfox 
+bindsym $mod+Shift+d exec discord
+bindsym $mod+Shift+o exec dmenu-screenmode.sh
+bindsym $mod+Shift+p exec /home/thinkarch/git/Nadeshiko/nadeshiko-mpv.sh
