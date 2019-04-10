@@ -1,0 +1,18 @@
+" Project Specific Indentation setting
+let g:pymode_indent = 0
+let g:python_recommended_style = 0
+
+setlocal nolisp
+setlocal tabstop=2
+setlocal softtabstop=2
+setlocal shiftwidth=2
+setlocal shiftround
+setlocal expandtab
+setlocal autoindent
+setlocal indentexpr=pymode#indent#get_indent(v:lnum)
+setlocal indentkeys=!^F,o,O,<:>,0),0],0},=elif,=except
+
+" IED commands
+map $u <Esc>:w<Enter>:!ampy<Space>-p<Space>/dev/ttyUSB0<Space>put<Space>%<Enter>
+map $c <Esc>:!st<Space>-e<Space>minicom<Space>-D<Space>/dev/ttyUSB0<Space>&<Enter>
+

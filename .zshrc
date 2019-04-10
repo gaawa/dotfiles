@@ -84,6 +84,11 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+# Set personal functions.
+function mkcdir {
+    mkdir $1 && cd $1
+}
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -94,6 +99,13 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias r="ranger"
 alias c="clear"
+alias s="startx"
+alias e="exit"
+alias y="youtube-dl"
+alias v="vim"
+alias esp="ampy -p /dev/ttyUSB0"
+alias esp-mc="minicom -D /dev/ttyUSB0"
+# alias python="python3.6"
 # alias for git repo for dotfiles:
 alias gitdotfile='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
