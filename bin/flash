@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ -z $1 ]; then
+   swf=$(ls *.swf | tail -1)
+else
+   swf=$@
+fi
+
+
+swf=$(realpath $swf)
+html=$(echo $swf | sed 's:swf:html:g')
+echo '<embed src='$swf 'width="100%" height="100%"></embed>' | sed 's:src=:src=":g' | sed 's:swf:swf":g' > "$html"
+
+chromium "$html" && sleep 20 && rm "$html"
+#google-chrome "$html" && sleep 20 && rm "$html"
