@@ -18,3 +18,5 @@ else
     $DIR/$SELECTION.sh
 fi
 echo $SELECTION
+reload-wallpaper.sh
+
