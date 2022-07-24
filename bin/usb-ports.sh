@@ -6,5 +6,5 @@ for sysdevpath in $(find /sys/bus/usb/devices/usb*/ -name dev); do
     [[ "$devname" == "bus/"* ]] && continue
     eval "$(udevadm info -q property --export -p $syspath)"
     [[ -z "$ID_SERIAL" ]] && continue
-    echo "/dev/$devname - $ID_SERIAL"
+    echo "/dev/$devname - $ID_SERIAL ($syspath)"
 done

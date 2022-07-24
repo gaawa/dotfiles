@@ -10,15 +10,15 @@ CHOICE=$(echo "$SEL" | dmenu -i -p "Launch Selection" -l 3)
 case $CHOICE in
     "$VIVADO")
         echo $VIVADO
-        unset LANG && unset QT_PLUGIN_PATH && source /opt/Xilinx/Vivado/2018.3/settings64.sh && vivado
+        unset LANG && unset QT_PLUGIN_PATH && source /opt/Xilinx/Vivado/2018.2/settings64.sh && vivado
         ;;
     "$XSDK")
         echo $XSDK
-        unset LANG && unset QT_PLUGIN_PATH && source /opt/Xilinx/SDK/2018.3/settings64.sh && xsdk
+        unset LANG && unset QT_PLUGIN_PATH && source /opt/Xilinx/SDK/2018.2/settings64.sh && xsdk
         ;;
-    "$DOCNAV")
-        echo $DOCNAV
-        # libpng12 is needed for the docnav
-        /opt/Xilinx/DocNav/docnav
-        ;;
+    #"$DOCNAV")
+    #    echo $DOCNAV
+    #    # libpng12 is needed for the docnav
+    #    /opt/Xilinx/DocNav/docnav
+    #    ;;
 esac

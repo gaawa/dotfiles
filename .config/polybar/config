@@ -54,7 +54,7 @@ modules-center =
 #modules-right = filesystem xbacklight pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 modules-right = filesystem xbacklight pulseaudio xkeyboard memory cpu eth battery temperature date powermenu
 
-tray-position = center
+tray-position = right
 tray-padding = 2
 ;tray-transparent = true
 ;tray-background = #0063ff

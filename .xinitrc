@@ -52,5 +52,7 @@ fi
 
 # run wacom setup
 wacom-setup.sh
+# swap caps and escape
+xmodmap $HOME/bin/swap_caps_esc.xmodmap
 # run i3
 exec i3

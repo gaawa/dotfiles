@@ -26,8 +26,14 @@ I_NSFW=/tmp/$USER-wallpaper/wallpaperindex_nsfw
 I_WEEB=/tmp/$USER-wallpaper/wallpaperindex_weeb
 INDEX=/tmp/$USER-wallpaper/wallpaperindex
 
-# ask for mode
-case $(echo -e "SFW\nWEEB\nNSFW" | dmenu -i -p "Which wallpaper mode?") in
+if [[ -n $1 ]]
+then
+    MODE=$1
+else
+    MODE=$(echo -e "SFW\nWEEB\nNSFW" | dmenu -i -p "Which wallpaper mode?")
+fi
+
+case $MODE in
     "SFW")
         #SEL=$(sxiv -to $(cat $DIR_SFW))
         SEL="$(get_imgsel $(cat $DIR_SFW))"

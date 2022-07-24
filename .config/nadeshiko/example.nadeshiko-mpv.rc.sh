@@ -1,4 +1,16 @@
-# nadeshiko-mpv.rc.sh v2.3
+#  nadeshiko-mpv.rc.sh
+#
+#  Main configuration file for nadeshiko-mpv.sh. Copied as an example
+#  to user’s configuration directory from defconf/.
+#
+#  RC file uses bash syntax:
+#    key=value
+#  Quotes can be omitted, if the value is a string without spaces.
+#  The equals sign should stick to both key and value – no spaces around “=”.
+#
+#  Nadeshiko wiki may answer a question before you ask it!
+#  https://github.com/deterenkelt/Nadeshiko/wiki
+
 
 
  # The command to launch mpv.
@@ -14,21 +26,31 @@ mpv='mpv'
 #  If you call mpv from SMplayer or another wrapper, input-ipc-server
 #  can be added as a command line option – but make sure you use the ‘=’ sign!
 #      $ mpv --input-ipc-server=/tmp/mpv-socket
-#  After assigning mpv path to its socket, place it here.
+#  After assigning path to the socket for mpv, specify that path here.
 #
 mpv_sockets=(
 	[Usual]='/tmp/mpv-socket'
 )
 
 
+ # Postponed encoding
+#  “yes”: When encoding parameters are accepted, saves the command
+#         as a job file to be run later with Nadeshiko-do-postponed.
+#         Force-enables the “Encode later” checkbox in the GUI.
+#  “no”: When encoding parameters are accepted, starts to encode immediately.
+#  Default value: no
+#
+postpone=no
+
+
  # Set to “no” to skip previewing the clip before encoding it.
-#  This plays the source file, as it will be clipped.
+#  This plays the source file, as it will be clipped. (If the video is to be
+#  cropped, ignore the subtitle placement.)
 #
 show_preview=yes
 
 
  # Set to “no” to skip playing the encoded clip.
-#  This plays an actually encoded file.
 #
 show_encoded_file=yes
 
@@ -37,23 +59,26 @@ show_encoded_file=yes
 #  Each line corresponds to one Nadeshiko configuration file. Create custom
 #    configurations to switch between them on the fly in Nadeshiko-mpv.
 #    Read about file naming rules on the wiki: https://git.io/fx3Qr.
-#    The order of presets in the GUI will correspond to the order here,
-#    and the topmost preset here will be the default tab opened in the GUI.
+#  May be empty, in this case an item named “default” is created and assigned
+#    “nadeshiko.rc.sh” as the value.
 #  Format: [name for display]='nadeshiko-custom.rc.sh'
 #
 nadeshiko_presets=(
-	[default]='nadeshiko.rc.sh'
+	# [default]='nadeshiko.rc.sh'
 	# [H.264]='nadeshiko-H.264.rc.sh'
 	# [VP9]='nadeshiko-VP9.rc.sh'
 )
 
 
  # Which preset tab the GUI should open by default
-#  The value must be a preset name, as defined in square brackets above.
-#  In case when there is only one preset in use, there will be no tabs,
-#  and hence this option would have no effect.
+#  If there are more than one nadeshiko preset defined, this opion defines
+#    which preset will be opened by default, when GUI spawns.
+#  The value must be a preset name, as defined in square brackets in the
+#    nadeshiko_presets array above. In case when there is only one preset
+#    in use, there will be no tabs, and hence this option will have no effect.
+#  Default value: 'default'
 #
-gui_default_preset='default'
+#gui_default_preset='default'
 
 
  # Calculate and show, how the video clip would fit in each of the known file
@@ -75,23 +100,20 @@ gui_default_preset='default'
 #    - you use only “unlimited” size;
 #    - you encode only the tiniest clips, which always fit
 #      in your size constraints.
-#  Default value: yes
+#  Default value: on
 #
-predictor=yes
+predictor=on
 
 
  # To save time, predictor runs only for the default maximum size (that is
 #    specified in max_size_default variable in Nadeshiko RC file). This redu-
 #    ces the number of runs threefold.
-#  Usually the only values, that are really helpful are for the default
-#    maximum sizes, specified in the presets. The others are nice to look at,
-#    but they only take time. However, you may add other sizes, if you wish.
-#  Format: all size codes used in a Nadeshiko RC file: tiny, small, normal,
+#  Format: all size codes used in the Nadeshiko RC file: tiny, small, normal,
 #    unlimited, default.
 #  Size “unlimited” can be omitted, as predictor never actually runs for
 #    this size (everything fits in unlimited size).
 #  Size “default” will enable predictor for whatever maximum size is set
-#    as maximum_size_default in the Nadeshiko configuration file aka preset.
+#    as maximum_size_default in the Nadeshiko configuration file.
 #    (It is not an error, if it will be set to “normal” and both “default”
 #    and “normal” would be specified here.)
 #  Default value: =( "default" )
@@ -102,3 +124,59 @@ run_predictor_only_for_sizes=(
 	# small
 	# normal
 )
+
+
+ # Tells Nadeshiko-mpv to be quicker
+#  After asking for crop settings immediately stores a postponed job
+#  with the Nadeshiko preset specified in quick_run_preset. It also:
+#  - disables building GUI;
+#  - disables predictor;
+#  - enables “postpone”.
+#  Default value: off
+#
+quick_run=off
+
+
+ # Nadeshiko preset to use, when quick_run option is enabled.
+#  Must be either a preset file name in the config directory, or an empty
+#    string to let Nadeshiko use the default settings.
+#  Quick run ignores entries from nadeshiko_presets.
+#
+quick_run_preset=''
+
+
+ # Format for the on-screen message in mpv during the crop mode.
+#  Each line here corresponds to a line on the screen.
+#  To insert a space between lines, simply add an empty line ('' or "").
+#  Any characters are allowed, except for these: "$`(</>\
+#  Colour codes are forbidden, but you may use these two keys to dim a part
+#  of text (by default it’s bright white):
+#    - %dim% – text going after this keyword will have grey colour;
+#    - %undim% – stops the effect of %dim%.
+#
+croptool_osd=(
+	'Cropping: select an area'
+	''
+	'ENTER %dim%– accept%undim%   ESC %dim%– cancel%undim%'
+	''
+	'Z %dim%– switch frame colour%undim%'
+	'X %dim%– switch guides%undim%'
+	''
+	'CTRL → %dim%– nudge border%undim%'
+	'CTRL ↑ %dim%– nudge border%undim%'
+	'CTRL ← %dim%– nudge border%undim%'
+	'CTRL ↓ %dim%– nudge border%undim%'
+	''
+	'SHIFT → %dim%– move%undim%'
+	'SHIFT ↑ %dim%– move%undim%'
+	'SHIFT ← %dim%– move%undim%'
+	'SHIFT ↓ %dim%– move%undim%'
+)
+
+
+ # Type of guides to show by default over the cropping frame:
+#  “none” – only the frame itself (default);
+#  “centre” or “center” – frame will have a crosshair over it;
+#  “trisection” – frame will have a 3×3 grid over it.
+#
+croptool_guides='none'

@@ -27,7 +27,7 @@ for_window [class="floatingSt"] floating enable
 # assign specific applications to a specific workspace
 assign [class="Waterfox"] 10
 assign [class="discord"] 11
-assign [class="Firefox"] 12
+assign [class="firefox"] 12
 
 # leave fullscreen mode when a popup appears.
 popup_during_fullscreen leave_fullscreen
@@ -305,11 +305,13 @@ bindsym $mod+Shift+s exec gnome-screenshot -i
 bindsym $mod+Shift+Control+s exec gscreenshot
 
 #compton for transparency
-exec compton -CG
+exec picom -CG
 
 #multi display: move workspace
 bindsym $mod+x move workspace to output right
-bindsym $mod+Shift+x move workspace to output left
+bindsym $mod+Control+x move workspace to output left
+bindsym $mod+Shift+x move workspace to output up
+bindsym $mod+Shift+Control+x move workspace to output down
 
 #download with youtube-dl
 bindsym $mod+Shift+y exec ytdl-from-clipboard.sh
@@ -324,3 +326,6 @@ bindsym $mod+Shift+f exec waterfox
 bindsym $mod+Shift+d exec discord
 bindsym $mod+Shift+o exec dmenu-screenmode.sh
 bindsym $mod+Shift+p exec /home/thinkarch/git/Nadeshiko/nadeshiko-mpv.sh
+
+# screen-mode selector at startup
+exec dmenu-screenmode.sh

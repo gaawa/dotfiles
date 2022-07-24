@@ -5,6 +5,7 @@ fi
 
 export PATH="${PATH}:/opt/matlab/bin"
 export PATH="${PATH}:/opt/jdownloader2"
+export PATH="${PATH}:$HOME/.local/bin"
 export TERMCMD="st"
 export EDITOR="vim"
 export XILINXD_LICENSE_FILE='2100@srvlic-xilinx.bfh.ch'
