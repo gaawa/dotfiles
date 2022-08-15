@@ -1,0 +1,215 @@
+Xcursor.size: 16
+!-------------------------------------------------------------------------------
+! Xft settings
+!-------------------------------------------------------------------------------
+!Xft.dpi:                    96
+!Xft.antialias:              false
+!Xft.rgba:                   rgb
+!Xft.hinting:                true
+!Xft.hintstyle:              hintslight
+
+!-------------------------------------------------------------------------------
+! URxvt settings
+! Colours lifted from Solarized (http://ethanschoonover.com/solarized)
+! More info at:
+! http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
+!-------------------------------------------------------------------------------
+
+URxvt.depth:                32
+URxvt.geometry:             90x30
+URxvt.transparent:          false
+URxvt.fading:               0
+! URxvt.urgentOnBell:         true
+! URxvt.visualBell:           true
+URxvt.loginShell:           true
+URxvt.saveLines:            50000
+URxvt.internalBorder:       3
+URxvt.lineSpace:            0
+
+! Fonts
+URxvt.allow_bold:           true
+/* URxvt.font:                 -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
+URxvt.font: xft:Ubuntu\ Mono\ derivative\ Powerline:pixelsize=16
+!URxvt.boldFont: xft:Ubuntu\ Mono\ derivative\ Powerline:bold:pixelsize=16
+!URxvt.font: xft:Meslo LG S for Powerline:pixelsize=14
+!URxvt.boldFont: xft:Meslo LG L Bold for Powerline:pixelsize=16
+!URxvt*font: xft:Terminess Powerline:size=12
+! Fix font space
+URxvt.letterSpace: 0
+
+! Scrollbar
+URxvt.scrollStyle:          rxvt
+URxvt.scrollBar:            false
+
+! Perl extensions
+URxvt.perl-ext-common:      default,matcher,xkr-clipboard
+URxvt.iso14755:             false
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+! URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.matcher.button:       1
+URxvt.urlLauncher:          firefox
+
+! Cursor
+URxvt.cursorBlink:          true
+URxvt.cursorColor:          #657b83
+URxvt.cursorUnderline:      false
+*cursorColor:               #93a1a1
+
+! Pointer
+URxvt.pointerBlank:         true
+
+URxvt.foreground:                #18f018
+URxvt.foreground_bold:           #a8a19f
+URxvt.cursor:                    #a8a19f
+!!*background: rgba(0, 0, 0, .7)
+URxvt.fadeColor:             #002b36
+URxvt.pointerColorBackground: #586e75
+URxvt.pointerColorForeground: #93a1a1
+
+!! black dark/light
+URxvt.color0: #424242
+URxvt.color8: #5d5d5d
+
+!! red dark/light
+URxvt.color1: #dc322f
+URxvt.color9: #cb4b16
+!00212a
+
+!! green dark/light
+URxvt.color2: #54ff54
+!!*color2: #000000
+
+URxvt.color10: #4a8b4a
+
+!! yellow dark/light
+URxvt.color3: #b58900
+URxvt.color11: #657b83
+
+!! blue dark/light
+URxvt.color4: #ccf9ee
+URxvt.color12: #54ffff 
+
+!! magenta dark/light
+URxvt.color5: #d33682
+URxvt.color13: #6c71c4
+
+!! cyan dark/light
+URxvt.color6: #2aa198
+URxvt.color14: #93a1a1
+
+!! white dark/light
+URxvt.color7: #607f67
+URxvt.color15: #fdf6e3
+
+URxvt.intensityStyles:	false
+URxvt.background:       [85]#000000
+
+
+!-------------------------------------------------------------------------------
+! st settings
+! 
+! 
+! 
+!-------------------------------------------------------------------------------
+
+!st.font: xft:Ubuntu\ Mono\ derivative\ Powerline:pixelsize=16
+st.font: Ubuntu\ Mono\ derivative\ Powerline:pixelsize=16
+!st.font: Liberation\ Mono:pixelsize=12:antialias=true:autohint=true
+
+!! black dark/light
+st.color0:       #3e3e3e
+st.color8:       #616161
+
+!! red dark/light
+st.color1:       #ec4040
+st.color9:       #eb4b4b
+
+!! green dark/light
+st.color2:       #83c07a
+st.color10:      #f7ffaa
+
+!! yellow dark/light
+st.color3:       #c39e53
+st.color11:      #9b9b49
+
+!! blue dark/light
+st.color4:       #ffffff
+st.color12:      #ffffff
+
+!! magenta dark/light
+st.color5:       #a781b3
+st.color13:      #d16cf1
+
+!! cyan dark/light
+st.color6:       #79b5ad
+st.color14:      #c7efe9
+
+!! white dark/light
+st.color7:       #bdbdbd
+st.color15:      #ededed
+
+st.background: #000000
+st.foreground: #18f018
+st.cursorColor: #ffffff
+
+st.termname:			st-256color
+st.shell:			/bin/sh
+st.bellvolume:			100
+st.tabspaces:			8
+st.chscale:			1.0
+st.cwscale:                     1.0
+st.blinktimeout:                800
+
+
+!-------------------------------------------------------------------------------
+! xterm settings
+! 
+! 
+! 
+!-------------------------------------------------------------------------------
+
+
+
+! Use a nice truetype font and size by default... 
+xterm*font: xft:Ubuntu\ Mono\ derivative\ Powerline:pixelsize=16
+!xterm*faceName: DejaVu Sans Mono Book
+!xterm*faceSize: 11
+
+! Every shell is a login shell by default (for inclusion of all necessary environment variables)
+xterm*loginshell: true
+
+! I like a LOT of scrollback...
+xterm*savelines: 16384
+
+! double-click to select whole URLs :D
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! DOS-box colours...
+xterm*foreground: rgb:a8/a8/a8
+xterm*background: rgb:00/00/00
+xterm*color0: rgb:00/00/00
+xterm*color1: rgb:a8/00/00
+xterm*color2: rgb:00/a8/00
+xterm*color3: rgb:a8/54/00
+xterm*color4: rgb:00/00/a8
+xterm*color5: rgb:a8/00/a8
+xterm*color6: rgb:00/a8/a8
+xterm*color7: rgb:a8/a8/a8
+xterm*color8: rgb:54/54/54
+xterm*color9: rgb:fc/54/54
+xterm*color10: rgb:54/fc/54
+xterm*color11: rgb:fc/fc/54
+xterm*color12: rgb:54/54/fc
+xterm*color13: rgb:fc/54/fc
+xterm*color14: rgb:54/fc/fc
+xterm*color15: rgb:fc/fc/fc
+
+! right hand side scrollbar...
+xterm*rightScrollBar: true
+xterm*ScrollBar: true
+
+! stop output to terminal from jumping down to bottom of scroll again
+xterm*scrollTtyOutput: false
+
+
